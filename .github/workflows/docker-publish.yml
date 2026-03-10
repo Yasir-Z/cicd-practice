@@ -1,0 +1,15 @@
+name: ci-pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ci-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code repo
+        uses: actions/checkout@v4
+      - name: build docker image
+        run: docker build -t python-image .
