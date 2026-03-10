@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3 Tier Flask App</title>
+</head>
+<body>
+
+<h2>Simple Docker 3 Tier App</h2>
+
+<form method="POST">
+    <input type="text" name="message" placeholder="Enter message"/>
+    <button type="submit">Save</button>
+</form>
+
+{% if message %}
+<h3>Latest Message (From Redis Cache): {{message}}</h3>
+{% endif %}
+
+</body>
+</html>
