@@ -27,5 +27,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USER }}/cicd-practice:latest
-          tags: ${{ secrets.DOCKERHUB_USER }}/cicd-practice:sha-${{ env.SHORT_SHA }} 
+          tags: |
+            ${{ secrets.DOCKERHUB_USER }}/cicd-practice:latest
+            ${{ secrets.DOCKERHUB_USER }}/cicd-practice:sha-${{ env.SHORT_SHA }} 
