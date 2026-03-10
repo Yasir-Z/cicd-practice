@@ -8,6 +8,7 @@ on:
 jobs:
   ci-pipeline:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: checkout code repo
         uses: actions/checkout@v4
