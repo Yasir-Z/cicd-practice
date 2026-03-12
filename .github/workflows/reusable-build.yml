@@ -3,24 +3,28 @@ name: set-trigger
 on:
   workflow_call:
     inputs:
-      app_name: 
-        - web-app
+      app_name:
+        type: string
+        default: web-app
       environment:
-        - stagging   
-      secrets:
-        DOCKERHUB_USER: 
-          required: true
-        DOCKERHUB_TOKEN:
-          required: true 
+        type: string
+        default: staging
+
+    secrets:
+      DOCKERHUB_USER:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
 
 jobs:
   set-workflow-trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo for latest code 
+      - name: Checkout repo for latest code
         uses: actions/checkout@v4
+
       - name: Print app name and environment
-        run: echo "Building ${{ inputs.app_name }} for ${{ inputs.environmet }}."   
+        run: echo "Building ${{ inputs.app_name }} for ${{ inputs.environment }}."
+
       - name: "Prints Docker token is set: true"
         run: echo "Docker token is set: true"
-
