@@ -12,7 +12,8 @@ on:
     outputs:
       build_version:
         description: "The generated build version"
-        value: ${{ jobs.build.outputs.build_version }}
+        # FIX: Point to the correct Job ID (set-workflow-trigger) and Job Output (version)
+        value: ${{ jobs.set-workflow-trigger.outputs.version }}
 
     secrets:
       DOCKERHUB_USER:
@@ -21,21 +22,16 @@ on:
         required: true
 
 jobs:
-  set-workflow-trigger:
+  set-workflow-trigger: # This is your Job ID
     runs-on: ubuntu-latest
     outputs:
+      # FIX: Point to the correct Step ID (get_tag) and Step Output (TAG)
       version: ${{ steps.get_tag.outputs.TAG }}
     steps:
       - name: Checkout repo for latest code
         uses: actions/checkout@v4
 
-      - name: Print app name and environment
-        run: echo "Building ${{ inputs.app_name }} for ${{ inputs.environment }}."
-
-      - name: "Prints Docker token is set: true"
-        run: echo "Docker token is set true"
       - name: Generate version
         id: get_tag
-        run: echo "sha_short=v1.0-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
-
-  
+        # FIX: Ensure the key here (TAG) matches what the Job Output looks for
+        run: echo "TAG=v1.0-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
