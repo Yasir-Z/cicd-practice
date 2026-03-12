@@ -1,0 +1,26 @@
+name: set-trigger
+
+on:
+  workflow_call:
+    inputs:
+      app_name: 
+        - web-app
+      environment:
+        - stagging   
+      secrets:
+        DOCKERHUB_USER: 
+          required: true
+        DOCKERHUB_TOKEN:
+          required: true 
+
+jobs:
+  set-workflow-trigger:
+    runs-on: ubuntu-latest
+      steps:
+        - name: checkout repo for latest code 
+          uses: actions/checkout@v4
+        - name: Prints Building <app_name> for <environment>
+          run: echo "Building ${{ app_name }} for ${{ environmet }}."   
+        - name: Prints Docker token is set: true (never print the actual secret)
+          run: echo "Docker token is set: true"
+
