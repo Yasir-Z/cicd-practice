@@ -27,4 +27,4 @@ jobs:
         run: echo "Building ${{ inputs.app_name }} for ${{ inputs.environment }}."
 
       - name: "Prints Docker token is set: true"
-        run: echo "Docker token is set: true"
+        run: echo "Docker token is set true"
