@@ -11,12 +11,12 @@ jobs:
       app-name: "my-web-app"
       environment: "production"
 
-  version:
+  print-version:
     needs: call-reuseable-workflow
     runs-on: ubuntu-latest
     steps:
       - name: Get from reusealbe job
-        run: echo "final version is ${{ needs.call-reuseable.workflow.outputs.build-version}}"
+        run: echo "final version is ${{ needs.call-reuseable-workflow.outputs.build-version}}"
     
 
     secrets:
