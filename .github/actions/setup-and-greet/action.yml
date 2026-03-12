@@ -1,0 +1,21 @@
+name: composit-workflow-call
+
+on:
+  workflow_call:
+  inputs:
+      name: workflow
+      language: en
+    outputs:
+      name: greeted
+      value: true
+
+jobs:
+  workflow-trigger:
+    uses: .github/actions/setup-and-greet/action.yml
+
+    steps:
+    - name: Print a greeting in the specified language
+      run: echo "Hello-world" 
+
+    - name: Print the current date and runner OS
+      run: "Currnt os is ${{ runner.os }}"
