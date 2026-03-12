@@ -10,6 +10,10 @@ on:
       environment:
         type: string
         default: staging
+    outpus:
+      build_version:
+      description: "The generated build version"
+      value: ${{ jobs.build.outputs.build_version }}
 
     secrets:
       DOCKERHUB_USER:
@@ -20,6 +24,8 @@ on:
 jobs:
   set-workflow-trigger:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_tag.outputs.TAG }}
     steps:
       - name: Checkout repo for latest code
         uses: actions/checkout@v4
@@ -29,3 +35,8 @@ jobs:
 
       - name: "Prints Docker token is set: true"
         run: echo "Docker token is set true"
+      - name: Generate version
+        id: get_tag
+        run: echo ": sha_short=v1.0-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT"
+
+  
