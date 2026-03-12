@@ -1,37 +1,34 @@
-name: set-trigger
+name: reuseable-workflow
 
 on:
   workflow_call:
     inputs:
-      app_name:
+      app-name:
         type: string
-        default: web-app
+        required: true
+
       environment:
         type: string
+        required: true
         default: staging
-    outputs:
-      build_version:
-        description: "The generated build version"
-        # FIX: Point to the correct Job ID (set-workflow-trigger) and Job Output (version)
-        value: ${{ jobs.set-workflow-trigger.outputs.version }}
 
     secrets:
-      DOCKERHUB_USER:
-        required: true
-      DOCKERHUB_TOKEN:
-        required: true
+      DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
 jobs:
-  set-workflow-trigger: # This is your Job ID
+  reuse-workflow:
     runs-on: ubuntu-latest
-    outputs:
-      # FIX: Point to the correct Step ID (get_tag) and Step Output (TAG)
-      version: ${{ steps.get_tag.outputs.TAG }}
     steps:
-      - name: Checkout repo for latest code
+      - name: checkout the code 
         uses: actions/checkout@v4
 
-      - name: Generate version
-        id: get_tag
-        # FIX: Ensure the key here (TAG) matches what the Job Output looks for
-        run: echo "TAG=v1.0-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+      - name: Prints Building <app_name> for <environment>
+        run: echo "Building ${{ input.app-name }} for ${{ input.environment }}."
+
+      - name: Prints Docker token
+        run: echo "Docker token is set true"
+
+
+
+
