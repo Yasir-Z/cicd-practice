@@ -16,7 +16,7 @@ on:
       DOCKERHUB_TOKEN:
         required: true
     outputs:
-      value: ${{ jobs.reuse-workflow.outputs.job-outputs }}
+      build-version: ${{ jobs.reuse-workflow.outputs.job-outputs }}
       
     
 
@@ -37,6 +37,6 @@ jobs:
       
       - name: print version of build
         id: gen-version
-        run: echo "Build version is v1.0 ${GITHUB_SHA::7}" >> $GITHUB_ENV
+        run: echo "build-version=v1.0 ${GITHUB_SHA::7}" >> $GITHUB_ENV
 
 
