@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: checkout repo for latest code 
         uses: actions/checkout@v4
-      - name: Prints Building <app_name> for <environment>
-        run: echo "Building ${{ app_name }} for ${{ environmet }}."   
+      - name: Print app name and environment
+        run: echo "Building ${{ inputs.app_name }} for ${{ inputs.environmet }}."   
       - name: "Prints Docker token is set: true"
         run: echo "Docker token is set: true"
 
