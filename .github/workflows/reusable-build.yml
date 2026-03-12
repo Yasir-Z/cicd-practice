@@ -15,10 +15,16 @@ on:
     secrets:
       DOCKERHUB_TOKEN:
         required: true
+    outputs:
+      value: ${{ jobs.reuse-workflow.outputs.job-outputs }}
+      
+    
 
 jobs:
   reuse-workflow:
     runs-on: ubuntu-latest
+    outputs:
+      job-outputs: ${{ steps.gen-version.outputs.build-version }}
     steps:
       - name: checkout the code 
         uses: actions/checkout@v4
@@ -28,7 +34,9 @@ jobs:
 
       - name: Prints Docker token
         run: echo "Docker token is set true"
-
-
+      
+      - name: print version of build
+        id: gen-version
+        run: echo "Build version is v1.0 ${GITHUB_SHA::7}" >> $GITHUB_ENV
 
 
