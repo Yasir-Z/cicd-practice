@@ -10,7 +10,7 @@ on:
       environment:
         type: string
         default: staging
-    outpus:
+    outputs:
       build_version:
       description: "The generated build version"
       value: ${{ jobs.build.outputs.build_version }}
