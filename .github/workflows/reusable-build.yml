@@ -37,6 +37,6 @@ jobs:
         run: echo "Docker token is set true"
       - name: Generate version
         id: get_tag
-        run: echo ": sha_short=v1.0-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT"
+        run: echo "sha_short=v1.0-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT"
 
   
