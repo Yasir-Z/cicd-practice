@@ -12,4 +12,4 @@ jobs:
       environment: "production"
 
     secrets:
-      docker_token: ${{ secrets.DOCKERHUB_TOKEN }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
