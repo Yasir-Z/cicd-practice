@@ -20,5 +20,5 @@ jobs:
     needs: build
     steps:
       - name: Use Build Version
-        run: echo "Deploying version: ${{ needs.call-build.outputs.build_version }}"
+        run: echo "Deploying version ${{ needs.call-build.outputs.build_version }}"
 
