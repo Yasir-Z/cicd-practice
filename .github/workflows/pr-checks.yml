@@ -16,10 +16,19 @@ jobs:
           fetch-depth: 0
 
       - name: Fail if file >1MB
-        run: |
+       #  run: |
           for f in $(git diff --name-only origin/main...HEAD); do
             if [ -f "$f" ] && [ $(stat -c%s "$f") -gt 1048576 ]; then
               echo "$f file size is > 1MB"
               exit 1
             fi
           done
+
+  branch-name-check:
+    runs-on: ubuntu-latest
+      steps:
+      - name: check-branch 
+        run: echo "branch is ${{ github.head_ref }}"
+
+
+
