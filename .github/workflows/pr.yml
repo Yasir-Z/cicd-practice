@@ -1,5 +1,9 @@
 name: filesize-cicd
+
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
@@ -8,17 +12,16 @@ jobs:
   file-size-check:
     runs-on: ubuntu-latest
     steps:
-      - name: checkou the code 
+      - name: checkout the code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }} 
-          fetch-decpth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
 
       - name: Fetch main branch
         run: git fetch origin main:main
-      
+
       - name: Check file sizes in PR
         uses: pelotech/github-action-file-size-checker@v1.2.0
         with:
           max_file_size: 1M
-        
