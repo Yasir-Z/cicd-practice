@@ -1,0 +1,19 @@
+name: filesize-cicd
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  file-size-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check file sizes in PR
+        uses: pelotech/github-action-file-size-checker@v1.2.0
+        with:
+          max_file_size: 1M
