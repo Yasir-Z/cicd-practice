@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  call-reuseable-workflow:
+  call-reusable:
     uses: ./.github/workflows/reusable-build.yml
     with:
       app-name: "my-web-app"
