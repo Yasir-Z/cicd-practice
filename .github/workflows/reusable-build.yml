@@ -6,37 +6,30 @@ on:
       app-name:
         type: string
         required: true
-
       environment:
         type: string
         required: true
         default: staging
-
     secrets:
       DOCKERHUB_TOKEN:
         required: true
     outputs:
-      build:
-        description: "print app version"
-        version: ${{ jobs.reuse-workflow.outputs.job-outputs }}
-    
+      result:
+        description: "The build version"
+        value: ${{ jobs.build.outputs.final-result }}
+
 jobs:
-  reuse-workflow:
+  build:
     runs-on: ubuntu-latest
     outputs:
-      job-outputs: ${{ steps.gen-version.outputs.version }}
+      final-result: ${{ steps.step1.outputs.test }}
     steps:
       - name: checkout the code 
         uses: actions/checkout@v4
 
-      - name: Prints Building <app_name> for <environment>
+      - name: Prints Building info
         run: echo "Building ${{ inputs.app-name }} for ${{ inputs.environment }}."
 
-      - name: Prints Docker token
-        run: echo "Docker token is set true"
-      
       - name: print version of build
-        id: gen-version
-        run: echo "version=v1.0 ${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
-
-
+        id: step1
+        run: echo "test=v1.0-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
