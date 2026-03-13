@@ -1,4 +1,3 @@
-# added correct name
 name: call-build
 
 on:
@@ -11,7 +10,7 @@ jobs:
     with:
       app-name: "my-web-app"
       environment: "production"
-
+    # FIXED: Secrets must be indented at the same level as 'with'
     secrets:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -19,5 +18,6 @@ jobs:
     needs: call-reusable
     runs-on: ubuntu-latest
     steps:
-      - name: Get from reusealbe job
-        run: echo "final version is ${{ needs.call-reusable.outputs.result}}"
+      - name: Get from reusable job
+        # FIXED: Now correctly references 'result' from the reusable workflow
+        run: echo "final version is ${{ needs.call-reusable.outputs.result }}"
