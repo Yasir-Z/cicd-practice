@@ -1,23 +1,10 @@
-name: Test Composite Action
+steps:
+  - name: select composit action path
+    id: greet
+    uses: ./.github/actions/setup-and-greet
+    with:
+      name: 'Mona'
+      language: "en"
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-jobs:
-  test-action:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Greeting Action
-        id: greet_step
-        uses: ./.github/actions/setup-and-greet
-        with:
-          name: "Gemini"
-          language: "en"
-
-      - name: Verify Output
-        run: echo "Action finished successfully? ${{ steps.greet_step.outputs.greeted }}"
+  - name: check greeting status
+    run: echo " Greeting status is ${{ steps.greet.output.greeted }}"
