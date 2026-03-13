@@ -1,10 +1,20 @@
-steps:
-  - name: select composit action path
-    id: greet
-    uses: ./.github/actions/setup-and-greet
-    with:
-      name: 'Mona'
-      language: "en"
+name: run-greet-action
 
-  - name: check greeting status
-    run: echo " Greeting status is ${{ steps.greet.output.greeted }}"
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  greet-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: select composit action path
+        id: greet
+        uses: ./.github/actions/setup-and-greet
+        with:
+        name: 'Mona'
+        language: "en"
+
+      - name: check greeting status
+        run: echo " Greeting status is ${{ steps.greet.output.greeted }}"
