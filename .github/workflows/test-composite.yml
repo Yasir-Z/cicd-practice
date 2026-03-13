@@ -9,12 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: select composit action path
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: select composite action path
         id: greet
         uses: ./.github/actions/setup-and-greet
         with:
-        name: 'Mona'
-        language: "en"
+          name: "Mona"
+          language: "en"
 
       - name: check greeting status
-        run: echo " Greeting status is ${{ steps.greet.output.greeted }}"
+        run: echo "Greeting status is ${{ steps.greet.outputs.greeted }}"
