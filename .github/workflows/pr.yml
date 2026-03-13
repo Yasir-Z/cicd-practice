@@ -1,26 +1,25 @@
-# Corrected error
-name: create-pr
+name: pr-ci
 
 on:
   pull_request:
     branches:
       - main
-  
 
 jobs:
-  initiate-pull-request:
+  file-size-check:
     runs-on: ubuntu-latest
     steps:
-    - name: check code 
-      uses: actions/checkout@v4
+      - name: checkou the code 
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }} 
+          fetch-decpth: 0
 
-    - name: print message
-      run: echo "pull_request is created"
-
-    - name: which event tirggered 
-      run: echo "Event which fired is ${{ github.event.action }}"
-    - name: PR title 
-      run: echo "PR title ${{ github.event.pull_request.title }}"
-    - name: Author name  
-      run: echo "PR author ${{ github.event.pull_request.user.login }}"
-
+      - name: Fetch main branch
+        run: git fetch origin main:main
+      
+      - name: Check file sizes in PR
+        uses: pelotech/github-action-file-size-checker@v1.2.0
+        with:
+          max_file_size: 1M
+        
