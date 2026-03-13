@@ -16,15 +16,15 @@ on:
       DOCKERHUB_TOKEN:
         required: true
     outputs:
-      build-version: ${{ jobs.reuse-workflow.outputs.job-outputs }}
-      
+      build:
+        description: "print app version"
+        version: ${{ jobs.reuse-workflow.outputs.job-outputs }}
     
-
 jobs:
   reuse-workflow:
     runs-on: ubuntu-latest
     outputs:
-      job-outputs: ${{ steps.gen-version.outputs.build-version }}
+      job-outputs: ${{ steps.gen-version.outputs.version }}
     steps:
       - name: checkout the code 
         uses: actions/checkout@v4
@@ -37,6 +37,6 @@ jobs:
       
       - name: print version of build
         id: gen-version
-        run: echo "build-version=v1.0 ${GITHUB_SHA::7}" >> $GITHUB_ENV
+        run: echo "version=v1.0 ${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
 
