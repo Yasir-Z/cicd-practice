@@ -1,19 +1,26 @@
+# Corrected error
 name: create-pr
 
 on:
   pull_request:
-    branched: [main]
-    types:
-      - opened
-      - synchronize
-      - reopened
+    branches:
+      - main
+  
 
 jobs:
-  initiate-pr:
+  initiate-pull-request:
     runs-on: ubuntu-latest
     steps:
-    - name: check repo
-      uses: actions/checkoutv@4
+    - name: check code 
+      uses: actions/checkout@v4
 
-    - name: print date
-      run: echo "Today's data is $(date)."
+    - name: print message
+      run: echo "pull_request is created"
+
+    - name: which event tirggered 
+      run: echo "Event which fired is ${{ github.event.action }}"
+    - name: PR title 
+      run: echo "PR title ${{ github.event.pull_request.title }}"
+    - name: Author name  
+      run: echo "PR author ${{ github.event.pull_request.user.login }}"
+
