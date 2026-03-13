@@ -1,0 +1,19 @@
+name: create-pr
+
+on:
+  pull_request:
+    branched: [main]
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  initiate-pr:
+    runs-on: ubuntu-latest
+    steps:
+    - name: check repo
+      uses: actions/checkoutv@4
+
+    - name: print date
+      run: echo "Today's data is $(date)."
