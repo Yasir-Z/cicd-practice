@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+  
 
 jobs:
   initiate-pull-request:
@@ -14,3 +15,11 @@ jobs:
 
     - name: print message
       run: echo "pull_request is created"
+
+    - name: which event tirggered 
+      run: echo "Event which fired is: ${{ github.event.action }}"
+    - name: PR title 
+      run: echo "PR title: ${{ github.event.pull_request.title }}"
+    - name: Author name  
+      run: "PR author: ${{ github.event.pull_request.user.login }}"
+
