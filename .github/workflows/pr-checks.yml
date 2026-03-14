@@ -31,11 +31,9 @@ jobs:
       - name: Reads the branch name from
         run: echo "branch is ${{ github.head_ref }}"
       - name: Fail if not follow pattern
-        uses: DylanVann/check-pull-request-title@master
+        uses: tj-actions/branch-names@v8
         with:
-          regex: '^(feature\/|fix\/|docs\/).*'          
-
-
-
-
+          branch: ${{ github.head.ref }}
+          regex: '^(feature|fix|docs)/.*'
+      
 
