@@ -31,9 +31,9 @@ jobs:
       - name: Reads the branch name from
         run: echo "branch is ${{ github.head_ref }}"
       - name: Fail if not follow pattern
-        uses: tj-actions/branch-names@v8
-        with:
-          branch: ${{ github.head.ref }}
-          regex: '^(feature|fix|docs)/.*'
-      
+        run: |
+          if [[ ! "${{ github.head_ref }}" =~ ^(feature|fix|docs)/ ]]; then
+            echo "Branch must start with feature/, fix/, or docs/"
+            exit 1
+          fi      
 
