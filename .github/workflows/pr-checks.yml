@@ -1,4 +1,3 @@
-#Starts here 
 name: file-size-cicd
 
 on:
@@ -37,4 +36,22 @@ jobs:
             echo "Branch must start with feature/, fix/, or docs/"
             exit 1
           fi      
+  
+  pr-body-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read PR body
+        run: echo "PR body is ${{ github.event.pull_request.body }}"
+
+      - name: Warns (but doesn't fail) if the PR description is empty
+        run: |
+          PR_BODY="${{ github.event.pull_request.body }}"
+          if [[ -z "$PR_BODY" ]]; then
+            echo "⚠️ Warning: PR description is empty."
+          else
+            echo "✅ PR description is present."
+          fi
+
+
+      
 
