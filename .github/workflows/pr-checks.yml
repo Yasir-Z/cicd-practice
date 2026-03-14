@@ -23,3 +23,15 @@ jobs:
               exit 1
             fi
           done
+
+  branch-name-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reads the branch name from
+        run: echo "branch is ${{ github.head_ref }}"
+                  
+
+
+
+
+
