@@ -12,8 +12,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Check file sizes in PR
-        uses: pelotech/github-action-file-size-checker@v1.2.0
         with:
-          max_file_size: 1M
+        fetch-depth: 0
+
+      - name: Fail if file >1MB
+        run: |
+          for f in $(git diff --name-only origin/main...HEAD); do
+            if [ -f "$f" ] && [ $(stat -c%s "$f") -gt 1048576 ]; then
+              echo "$f exceeds 1MB"
+              exit 1
+            fi
+
