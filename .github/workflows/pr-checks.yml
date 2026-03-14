@@ -1,20 +1,15 @@
-name: filesize-cicd
-
 on:
   pull_request:
     branches:
       - main
-
 jobs:
   file-size-check:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
+        with: null
         fetch-depth: 0
-
       - name: Fail if file >1MB
         run: |
           for f in $(git diff --name-only origin/main...HEAD); do
@@ -22,4 +17,3 @@ jobs:
               echo "$f exceeds 1MB"
               exit 1
             fi
-
